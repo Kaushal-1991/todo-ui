@@ -7,7 +7,10 @@ export const logoutUserApi = () => axios.post(AUTH_BASE_URL + "/logout");
 export const storeToken = (token) => localStorage.setItem('token', token);
 export const getTokenApi = () => localStorage.getItem('token');
 
-export const savedLoggedInUser= (username) => sessionStorage.setItem('loggedInUser', username);
+export const savedLoggedInUser= (username,role) => {
+    sessionStorage.setItem('loggedInUser', username);
+   /// sessionStorage.setItem('role', role);
+}
 export const isLoggedInUser = () => {
     const user = sessionStorage.getItem('loggedInUser');
     if(user === null) return false;

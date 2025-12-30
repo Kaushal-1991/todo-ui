@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { deleteTodoData, getAllTodo } from '../service/TodoService';
 import ConfirmModal from './ConfirmModal';
 import { toast } from 'react-toastify'
+import { isAdminData } from '../service/AuthService';
 
 
 const ListTodoComponent = () => {
@@ -26,6 +27,9 @@ const [confirmOpen, setConfirmOpen] = useState(false);
 const [confirmId, setConfirmId] = useState(null);
 const navigate = useNavigate();
 const {id} = useParams();
+
+const isAdmin = isAdminData();
+alert(isAdmin);
 
 function allTodo(){
    getAllTodo().then((response) => {
@@ -74,7 +78,11 @@ function cancelDelete(){
   return (
     <div className='container mt-4'>
       <h3 className='text-center'>List Of TODO</h3>
-      <button className='btn btn-primary mb-2' onClick={addTodo}>Add Todo</button>
+      {
+        isAdmin && 
+        <button className='btn btn-primary mb-2' onClick={addTodo}>Add Todo</button>
+      }
+      
       <table className='table table-striped table-bordered'>
            <thead>
                <tr>

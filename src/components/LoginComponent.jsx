@@ -18,9 +18,12 @@ const LoginComponent = () => {
         setErrorMsg('');
         await loginUserApi(username,password).then((response) => {
             console.log("User logged in successfully !!!", response.data);
-            const token = "Basic " + window.btoa(username + ":" + password);
+           // const token = "Basic " + window.btoa(username + ":" + password);
+            const token = "Bearer " + response.data.accessToken;
+            const role = response.data.role;
+            console.log("ROle===>"+role);
             storeToken(token);
-            savedLoggedInUser(username);
+            savedLoggedInUser(username,role);
             setErrorMsg('');
             navigate("/todo");
             window.location.reload(false);
